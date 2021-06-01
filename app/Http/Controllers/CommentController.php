@@ -22,9 +22,13 @@ class CommentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request, $id) :int
     {
-        //
+        return Comment::firstOrFail([
+           'user_id' => $id,
+           'post_id' => $id,
+           'comment' => $request->comment,
+        ]);
     }
 
     /**
