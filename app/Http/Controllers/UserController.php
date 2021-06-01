@@ -65,4 +65,9 @@ class UserController extends Controller
 
         return $user;
     }
+
+    public function getUserProfile($id) {
+        $user = User::findOrFail($id);
+        return $user;
+    }
 }
