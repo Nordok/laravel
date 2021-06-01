@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Post;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 class PostFactory extends Factory
 {
@@ -22,7 +23,12 @@ class PostFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'user_id' => $this->faker->randomDigit(),
+            'title' =>$this->faker->realText(60),
+            'description' => $this->faker->realText(200),
+            'image' => $this->faker->slug,
+            'slug' => $this->faker->slug,
+            'like' => $this->faker->randomDigit(), // password
         ];
     }
 }
