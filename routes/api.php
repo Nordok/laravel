@@ -38,7 +38,8 @@ Route::get('/user/{id}/posts', [UserController::class, 'getUserPosts']);
 // Posts
 
 Route::get('/posts', [PostController::class, 'getPosts']);
-Route::get('/post/{id}', [PostController::class, 'getUserPost']);
+Route::get('/post/{id}', [PostController::class, 'getPostById']);
+Route::post('/user/{id}/post/create', [PostController::class, 'createPost']);
 
 
 
