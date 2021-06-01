@@ -20,6 +20,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+// Auth
 
 Route::group(['prefix' => 'auth','namespace' => 'Admin'], function() {
     Route::post('/login', [UserController::class, 'login']);
@@ -30,9 +31,14 @@ Route::group(['prefix' => 'auth','namespace' => 'Admin'], function() {
 Route::get('/profile/{id}', [UserController::class, 'getUserProfile']);
 
 
+// Users
+
+Route::get('/user/{id}/posts', [UserController::class, 'getUserPosts']);
+
 // Posts
 
 Route::get('/posts', [PostController::class, 'getPosts']);
 Route::get('/post/{id}', [PostController::class, 'getUserPost']);
+
 
 

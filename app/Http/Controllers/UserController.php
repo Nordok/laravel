@@ -70,4 +70,9 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         return $user;
     }
+
+    public function getUserPosts($id) {
+        $userPosts = User::find($id)->posts;
+        return $userPosts;
+    }
 }

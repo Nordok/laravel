@@ -7,7 +7,11 @@ use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
-   public function getPosts () {
+    /**
+     * @return Post[]|\Illuminate\Database\Eloquent\Collection
+     */
+
+    public function getPosts () {
        return Post::all();
    }
 }

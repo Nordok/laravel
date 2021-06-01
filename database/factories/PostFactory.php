@@ -23,7 +23,7 @@ class PostFactory extends Factory
     public function definition()
     {
         return [
-            'user_id' => $this->faker->randomDigit(),
+            'user_id' => $this->faker->randomDigit() + 1,
             'title' =>$this->faker->realText(60),
             'description' => $this->faker->realText(200),
             'image' => $this->faker->slug,
