@@ -12,6 +12,8 @@ class UserController extends Controller
 {
 
     /**
+     * @param Request $request
+     * @return array
      * @throws ValidationException
      */
     public function login(Request $request) {
@@ -30,7 +32,12 @@ class UserController extends Controller
             ]);
         }
 
-        return $user->createToken($request->email)->plainTextToken;
+        $token = $user->createToken($request->email)->plainTextToken;
+
+        return [
+            'token' => $token,
+            'user' => $user
+        ];
     }
 
     /**
@@ -52,27 +59,52 @@ class UserController extends Controller
     public function register(Request $request) {
 
         $request->validate([
-            'name' => 'required',
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'phone' => 'required',
+            'gender' => 'required',
             'email' => 'required|email',
             'password' => 'required',
         ]);
 
         $user = User::firstOrCreate([
-            'name' => $request->name,
-            'email' => $request->name,
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
+            'phone' => $request->phone,
+            'gender' => $request->gender,
+            'email' => $request->email,
             'password' => $request->password,
         ]);
 
-        return $user;
+        $token = $user->createToken($request->email)->plainTextToken;
+
+        return [
+            'token' => $token,
+            'user' => $user
+        ];
     }
 
+    /**
+     * @param $id
+     * @return mixed
+     */
     public function getUserProfile($id) {
-        $user = User::findOrFail($id);
-        return $user;
+        return User::findOrFail($id);
     }
 
+    /**
+     * @param $id
+     * @return mixed
+     */
     public function getUserPosts($id) {
-        $userPosts = User::find($id)->posts;
-        return $userPosts;
+        return User::find($id)->posts;
+    }
+
+
+    /**
+     * @param User $user
+     */
+    public function destroy (User $user) {
+        $user->delete();
     }
 }

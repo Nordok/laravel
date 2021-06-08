@@ -28,18 +28,28 @@ Route::group(['prefix' => 'auth','namespace' => 'Admin'], function() {
     Route::post('/register', [UserController::class, 'register']);
 });
 
-Route::get('/profile/{id}', [UserController::class, 'getUserProfile']);
-
 
 // Users
 
-Route::get('/user/{id}/posts', [UserController::class, 'getUserPosts']);
+Route::group(['prefix' => 'user', 'namespace' => 'User'], function () {
+    Route::get('/{id}', [UserController::class, 'getUserProfile']);
+    Route::get('/{id}/posts', [UserController::class, 'getUserPosts']);
+    Route::delete('/{id}', [UserController::class, 'destroy']);
+});
 
 // Posts
 
-Route::get('/posts', [PostController::class, 'getPosts']);
-Route::get('/post/{id}', [PostController::class, 'getPostById']);
-Route::post('/user/{id}/post/create', [PostController::class, 'createPost']);
+Route::post('/posts', [PostController::class, 'getPosts']);
+
+Route::group(['prefix' => 'post', 'namespace' => 'Post'], function () {
+    Route::post('/like', [PostController::class, 'likePost']);
+    Route::get('/{id}', [PostController::class, 'getPostById']);
+    Route::post('/create', [PostController::class, 'createPost']);
+});
+
+
+
+
 
 
 
